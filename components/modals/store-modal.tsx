@@ -1,10 +1,13 @@
 'use client';
 
-import { Modal } from '@/components/ui/modal';
 import { useStoreModal } from '@/hooks/use-store-modal';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+
 import {
     Form,
     FormControl,
@@ -13,11 +16,9 @@ import {
     FormLabel,
     FormMessage,
 } from '@/components/ui/form';
+import { Modal } from '@/components/ui/modal';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
-import axios from 'axios';
-import toast from 'react-hot-toast';
 
 const formSchema = z.object({
     name: z.string().min(1),
@@ -41,7 +42,7 @@ export const StoreModal = () => {
 
             window.location.assign(`/${res.data.id}`);
         } catch (e) {
-            toast.error('Something went wrong.');
+            toast.error('Что-то пошло не так.');
         } finally {
             setLoading(false);
         }
@@ -82,10 +83,10 @@ export const StoreModal = () => {
                                     type={'button'}
                                     onClick={storeModal.onClose}
                                 >
-                                    Cancel
+                                    Отмена
                                 </Button>
                                 <Button disabled={loading} type="submit">
-                                    Continue
+                                    Продолжить
                                 </Button>
                             </div>
                         </form>
