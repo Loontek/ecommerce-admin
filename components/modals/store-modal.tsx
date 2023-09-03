@@ -39,7 +39,7 @@ export const StoreModal = () => {
 
             const res = await axios.post('/api/stores', values);
 
-            toast.success('Store created.');
+            window.location.assign(`/${res.data.id}`);
         } catch (e) {
             toast.error('Something went wrong.');
         } finally {
@@ -79,6 +79,7 @@ export const StoreModal = () => {
                                 <Button
                                     disabled={loading}
                                     variant={'outline'}
+                                    type={'button'}
                                     onClick={storeModal.onClose}
                                 >
                                     Cancel
